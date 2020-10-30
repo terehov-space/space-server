@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class ManagerMiddleware
+class RoleMiddleware
 {
     /**
      * Handle an incoming request.
@@ -14,12 +14,12 @@ class ManagerMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $role)
     {
-        if ($request->user()->hasRole('manager')) {
-            return $next($request);
+        if (!$request->user()->hasRole($role)) {
+            return abort(403);
         }
 
-        return abort(403);
+        return $next($request);
     }
 }

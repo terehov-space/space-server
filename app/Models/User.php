@@ -49,6 +49,6 @@ class User extends Authenticatable
 
     public function hasRole($role)
     {
-        return $this->roles()->where('code', $role)->get();
+        return $this->roles()->where('code', $role)->count();
     }
 }
