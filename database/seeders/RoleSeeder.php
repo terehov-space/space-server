@@ -9,19 +9,24 @@ class RoleSeeder extends Seeder
 {
     private $default = [
         [
-            'title' => 'admin',
+            'title' => 'Администратор',
+            'code' => 'admin',
         ],
         [
-            'title' => 'manager',
+            'title' => 'Менеджер',
+            'code' => 'manager',
         ],
         [
-            'title' => 'developer',
+            'title' => 'Программист',
+            'code' => 'developer',
         ],
         [
-            'title' => 'client',
+            'title' => 'Клиент',
+            'code' => 'client',
         ],
         [
-            'title' => 'guest',
+            'title' => 'Гость',
+            'code' => 'guest',
         ],
     ];
 

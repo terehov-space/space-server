@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Role', 'users_roles', 'user_id', 'role_id');
     }
+
+    public function hasRole($role)
+    {
+        return $this->roles()->where('code', $role)->get();
+    }
 }
