@@ -33,6 +33,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">О проекте</a>
+                        </li>
                         @foreach ($menu as $item)
                             <li class="nav-item">
                             <a class="nav-link" href="{{ $item['href'] }}">{{ $item['title'] }}</a>

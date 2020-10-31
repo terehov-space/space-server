@@ -6,16 +6,6 @@ use Illuminate\View\View;
 
 class MenuComposer
 {
-    protected $defaultMenu = [
-        [
-            'title' => 'Главная',
-            'href' => '/',
-        ],
-        [
-            'title' => 'О проекте',
-            'href' => '/about',
-        ],
-    ];
     protected $adminMenu = [
         [
             'title' => 'Пользователи',
@@ -44,7 +34,7 @@ class MenuComposer
 
     public function compose(View $view)
     {
-        $menu = $this->defaultMenu;
+        $menu = [];
         if (request()->user()) {
             if (request()->user()->hasRole('admin')) {
                 $menu = array_merge($menu, $this->adminMenu);
