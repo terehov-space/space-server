@@ -10,7 +10,7 @@
                 <th scope="col">Имя</th>
                 <th scope="col">Почта</th>
                 <th scope="col">Роли</th>
-                <th scope="col">Действия</th>
+                <th scope="col" style="text-align: right;">Действия</th>
               </tr>
             </thead>
             <tbody>
@@ -29,7 +29,7 @@
                             У данного пользователя нет ролей
                             @endif
                         </td>
-                        <td><a href="/dash/users/{{ $user->id }}" class="btn btn-success btn-sm">Изменить</a></td>
+                        <td style="text-align: right;"><a href="/dash/users/{{ $user->id }}" class="btn btn-success btn-sm">Изменить</a></td>
                     </tr>
                     @endif
                 @endforeach

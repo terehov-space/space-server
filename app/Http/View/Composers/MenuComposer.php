@@ -38,7 +38,8 @@ class MenuComposer
         if (request()->user()) {
             if (request()->user()->hasRole('admin')) {
                 $menu = array_merge($menu, $this->adminMenu);
-            } elseif (request()->user()->hasRole('manager') || request()->user()->hasRole('developer') || request()->user()->hasRole('client')) {
+            }
+            if (request()->user()->hasRole('manager') || request()->user()->hasRole('developer') || request()->user()->hasRole('client')) {
                 $menu = array_merge($menu, $this->otherMenu);
             }
         }

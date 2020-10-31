@@ -35,7 +35,7 @@ Route::group(['prefix' => 'dash', 'middleware' => ['auth']], function () {
 
         Route::post('/users/{id}/update', [AdminUserController::class, 'update']);
 
-        Route::post('/users/{id}/delete', [AdminUserController::class, 'delete']);
+        Route::get('/users/{id}/delete', [AdminUserController::class, 'delete']);
 
         Route::get('/reports', function () {
             return 'reports';
