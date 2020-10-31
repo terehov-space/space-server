@@ -23,7 +23,8 @@ class CreateProjectsTable extends Migration
 
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('assigned_to');
-            $table->unsignedBigInteger('tag')->default(0);
+            $table->unsignedBigInteger('tag_id')->default(1);
+            $table->tinyInteger('deleted')->default(0);
         });
     }
 

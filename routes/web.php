@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,24 @@ Route::group(['prefix' => 'dash', 'middleware' => ['auth']], function () {
     });
 
     Route::group(['middleware' => ['role:admin|manager|developer|client']], function () {
-        Route::get('/projects', function() { return 'projects'; });
+        Route::get('/projects', [ProjectController::class, 'list']);
+
+        Route::post('/projects', function() { return 'projects'; });
+
+        Route::get('/projects/{id}', function() { return 'projects'; });
+
+        Route::get('/projects/{id}/update', function() { return 'projects'; });
+
+        Route::get('/projects/{id}/delete', function() { return 'projects'; });
+
+        Route::get('/tasks', function() { return 'projects'; });
+
+        Route::post('/tasks', function() { return 'projects'; });
+
+        Route::get('/tasks/{id}', function() { return 'projects'; });
+
+        Route::get('/tasks/{id}/update', function() { return 'projects'; });
+
+        Route::get('/tasks/{id}/delete', function() { return 'projects'; });
     });
 });
