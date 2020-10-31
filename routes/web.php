@@ -41,4 +41,8 @@ Route::group(['prefix' => 'dash', 'middleware' => ['auth']], function () {
             return 'reports';
         });
     });
+
+    Route::group(['middleware' => ['role:admin|manager|developer|client']], function () {
+        Route::get('/projects', function() { return 'projects'; });
+    });
 });
