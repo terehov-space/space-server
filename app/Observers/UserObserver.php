@@ -9,8 +9,10 @@ class UserObserver
 {
     public function created(User $user)
     {
-        $defaultRole = Role::find(5);
+        if ($user->id !== 1) {
+            $defaultRole = Role::find(5);
 
-        $user->roles()->save($defaultRole);
+            $user->roles()->save($defaultRole);
+        }
     }
 }

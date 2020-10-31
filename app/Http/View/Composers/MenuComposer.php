@@ -6,34 +6,44 @@ use Illuminate\View\View;
 
 class MenuComposer
 {
+    protected $defaultMenu = [
+        [
+            'title' => 'Главная',
+            'href' => '/',
+        ],
+        [
+            'title' => 'О проекте',
+            'href' => '/about',
+        ],
+    ];
     protected $adminMenu = [
         [
             'title' => 'Пользователи',
-            'href' => '/admin/',
+            'href' => '/admin',
         ],
         [
             'title' => 'Отчеты',
-            'href' => '/admin/reports/',
+            'href' => '/admin/reports',
         ],
     ];
     protected $workerMenu = [
         [
             'title' => 'Проекты',
-            'href' => '/work/projects/',
+            'href' => '/work/projects',
         ],
         [
             'title' => 'Задачи',
-            'href' => '/work/tasks/',
+            'href' => '/work/tasks',
         ],
     ];
     protected $clientMenu = [
         [
             'title' => 'Проекты',
-            'href' => '/home/projects/',
+            'href' => '/home/projects',
         ],
         [
             'title' => 'Задачи',
-            'href' => '/home/tasks/',
+            'href' => '/home/tasks',
         ],
     ];
 
@@ -45,14 +55,20 @@ class MenuComposer
     public function compose(View $view)
     {
         $menu = [];
-        if (request()->user()->hasRole('admin')) {
-            $menu = $this->adminMenu;
-        } elseif (request()->user()->hasRole('manager') || request()->user()->hasRole('developer')) {
-            $menu = $this->workerMenu;
-        } else {
+        if (request()->user()) {
+            if (request()->user()->hasRole('admin')) {
+                $menu = $this->adminMenu;
+            } elseif (request()->user()->hasRole('manager') || request()->user()->hasRole('developer')) {
+                $menu = $this->workerMenu;
+            } else {
             $menu = $this->clientMenu;
+            }
+        } else {
+            $menu = $this->defaultMenu;
         }
 
-        $view->with('menu', $menu);
+        $user = request()->user();
+
+        $view->with(['menu' => $menu, 'user' => $user]);
     }
 }
