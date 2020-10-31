@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
