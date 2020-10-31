@@ -19,31 +19,21 @@ class MenuComposer
     protected $adminMenu = [
         [
             'title' => 'Пользователи',
-            'href' => '/admin',
+            'href' => '/dash/users',
         ],
         [
             'title' => 'Отчеты',
-            'href' => '/admin/reports',
+            'href' => '/dash/reports',
         ],
     ];
-    protected $workerMenu = [
+    protected $otherMenu = [
         [
             'title' => 'Проекты',
-            'href' => '/work/projects',
+            'href' => '/dash/projects',
         ],
         [
             'title' => 'Задачи',
-            'href' => '/work/tasks',
-        ],
-    ];
-    protected $clientMenu = [
-        [
-            'title' => 'Проекты',
-            'href' => '/home/projects',
-        ],
-        [
-            'title' => 'Задачи',
-            'href' => '/home/tasks',
+            'href' => '/dash/tasks',
         ],
     ];
 
@@ -54,21 +44,15 @@ class MenuComposer
 
     public function compose(View $view)
     {
-        $menu = [];
+        $menu = $this->defaultMenu;
         if (request()->user()) {
             if (request()->user()->hasRole('admin')) {
-                $menu = $this->adminMenu;
-            } elseif (request()->user()->hasRole('manager') || request()->user()->hasRole('developer')) {
-                $menu = $this->workerMenu;
-            } else {
-            $menu = $this->clientMenu;
+                $menu = array_merge($menu, $this->adminMenu);
+            } elseif (request()->user()->hasRole('manager') || request()->user()->hasRole('developer') || request()->user()->hasRole('client')) {
+                $menu = array_merge($menu, $this->otherMenu);
             }
-        } else {
-            $menu = $this->defaultMenu;
         }
 
-        $user = request()->user();
-
-        $view->with(['menu' => $menu, 'user' => $user]);
+        $view->with(['menu' => $menu]);
     }
 }

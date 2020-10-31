@@ -26,16 +26,16 @@ Route::group(['prefix' => 'dash', 'middleware' => ['auth']], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/settings', [App\Http\Controllers\HomeController::class, 'index'])->name('settings');
 
-    Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
-        Route::get('/', [AdminUserController::class, 'list']);
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('/users', [AdminUserController::class, 'list']);
 
-        Route::post('/', [AdminUserController::class, 'add']);
+        Route::post('/users', [AdminUserController::class, 'add']);
 
-        Route::get('/user/{id}', [AdminUserController::class, 'showById']);
+        Route::get('/users/{id}', [AdminUserController::class, 'showById']);
 
-        Route::post('/user/{id}/update', [AdminUserController::class, 'update']);
+        Route::post('/users/{id}/update', [AdminUserController::class, 'update']);
 
-        Route::post('/user/{id}/delete', [AdminUserController::class, 'delete']);
+        Route::post('/users/{id}/delete', [AdminUserController::class, 'delete']);
 
         Route::get('/reports', function () {
             return 'reports';
