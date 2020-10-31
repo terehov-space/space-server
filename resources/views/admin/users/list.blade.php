@@ -15,6 +15,7 @@
             </thead>
             <tbody>
                 @foreach ($users as $user)
+                    @if ($user->id != Auth::user()->id && !$user->hasRole('admin'))
                     <tr>
                         <td>{{$user->id}}</td>
                         <td>{{$user->name}}</td>
@@ -30,6 +31,7 @@
                         </td>
                         <td><a href="/dash/users/{{ $user->id }}" class="btn btn-success btn-sm">Изменить</a></td>
                     </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
