@@ -9,7 +9,7 @@ class AdminUserController extends Controller
 {
     public function list(Request $request)
     {
-        return User::get();
+        return view('admin.users.list')->with('users', User::get());
     }
 
     public function showById(Request $request, $id)
