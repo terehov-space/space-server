@@ -19,7 +19,7 @@ class CreateProjectsTable extends Migration
 
             $table->string('title');
             $table->text('description')->nullable();
-            $table->date('deadlin')->nullable();
+            $table->date('deadline')->nullable();
 
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('assigned_to');

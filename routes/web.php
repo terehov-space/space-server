@@ -46,9 +46,11 @@ Route::group(['prefix' => 'dash', 'middleware' => ['auth']], function () {
     Route::group(['middleware' => ['role:admin|manager|developer|client']], function () {
         Route::get('/projects', [ProjectController::class, 'list']);
 
-        Route::post('/projects', function() { return 'projects'; });
+        Route::post('/projects', [ProjectController::class, 'add']);
 
-        Route::get('/projects/{id}', function() { return 'projects'; });
+        Route::get('/projects/add', function() { return view('projects.add'); });
+
+        Route::get('/projects/{id}', function() { return 'projects id'; });
 
         Route::get('/projects/{id}/update', function() { return 'projects'; });
 

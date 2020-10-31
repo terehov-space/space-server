@@ -10,7 +10,7 @@
                 <th scope="col">Название</th>
                 <th scope="col">Дата окончания</th>
                 <th scope="col">Статус</th>
-                <th scope="col" style="text-align: right;">Действия</th>
+                <th scope="col" style="text-align: right;">Действия<a href="/dash/projects/add" class="btn btn-success btn-sm" style="margin-left: 10px;">Добавить</a></th>
               </tr>
             </thead>
             <tbody>
@@ -18,7 +18,7 @@
                     <tr>
                         <td>{{$project->id}}</td>
                         <td>{{$project->title}}</td>
-                        <td>{{$project->dealine ?? ''}}</td>
+                        <td>{{$project->deadline ?? ''}}</td>
                         <td>
                             <a tabindex="0" class="btn btn-sm btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="{{ $project->tag()->first()->title }}" data-content="{{ $project->tag()->first()->description }}">{{$project->tag()->first()->title}}</a>
                         </td>
