@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,26 +45,32 @@ Route::group(['prefix' => 'dash', 'middleware' => ['auth']], function () {
     });
 
     Route::group(['middleware' => ['role:admin|manager|developer|client']], function () {
+        // projects
+
         Route::get('/projects', [ProjectController::class, 'list']);
 
         Route::post('/projects', [ProjectController::class, 'add']);
 
-        Route::get('/projects/add', function() { return view('projects.add'); });
+        Route::get('/projects/add', [ProjectController::class, 'addPage']);
 
-        Route::get('/projects/{id}', function() { return 'projects id'; });
+        Route::get('/projects/{id}', [ProjectController::class, 'edit']);
 
-        Route::get('/projects/{id}/update', function() { return 'projects'; });
+        Route::post('/projects/{id}/update', [ProjectController::class, 'update']);
 
-        Route::get('/projects/{id}/delete', function() { return 'projects'; });
+        Route::get('/projects/{id}/delete', [ProjectController::class, 'delete']);
 
-        Route::get('/tasks', function() { return 'projects'; });
+        // tasks
 
-        Route::post('/tasks', function() { return 'projects'; });
+        Route::get('/projects/{project}/tasks', [TaskController::class, 'list']);
 
-        Route::get('/tasks/{id}', function() { return 'projects'; });
+        Route::post('/projects/{project}/tasks', [TaskController::class, 'add']);
 
-        Route::get('/tasks/{id}/update', function() { return 'projects'; });
+        Route::get('/projects/{project}/tasks/add', [TaskController::class, 'addPage']);
 
-        Route::get('/tasks/{id}/delete', function() { return 'projects'; });
+        Route::get('/projects/{project}/tasks/{id}', [TaskController::class, 'edit']);
+
+        Route::post('/projects/{project}/tasks/{id}/update', [TaskController::class, 'update']);
+
+        Route::get('/projects/{project}/tasks/{id}/delete', [TaskController::class, 'delete']);
     });
 });

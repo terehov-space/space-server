@@ -5,17 +5,21 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-            <div class="card-header">Добавление нового проекта</div>
+            <div class="card-header">Редактировать проект #{{ $project->id }}
+                @if ($project->deleted)
+                <span class="badge badge-secondary">Удален</span>
+                @endif
+            </div>
 
                 <div class="card-body">
-                    <form method="POST" action="/dash/projects">
+                    <form method="POST" action="/dash/projects/{{ $project->id }}/update">
                         @csrf
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Название</label>
 
                             <div class="col-md-6">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="name" autofocus>
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="title" value="{{ $project->title }}" required autocomplete="name" autofocus {{ ($project->deleted)? 'disabled': '' }}>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -29,7 +33,7 @@
                             <label for="description" class="col-md-4 col-form-label text-md-right">Описание</label>
 
                             <div class="col-md-6">
-                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required autocomplete="email">
+                                <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" autocomplete="email" {{ ($project->deleted)? 'disabled': '' }}>{{ $project->description }}</textarea>
                             </div>
                         </div>
 
@@ -37,7 +41,7 @@
                             <label for="deadline" class="col-md-4 col-form-label text-md-right">Дедлайн</label>
 
                             <div class="col-md-6">
-                                <input id="deadline" type="date" class="form-control @error('deadline') is-invalid @enderror" name="deadline" value="{{ old('deadline') }}" required>
+                                <input id="deadline" type="date" class="form-control @error('deadline') is-invalid @enderror" name="deadline" value="{{ $project->deadline }}" {{ ($project->deleted)? 'disabled': '' }}>
                             </div>
                         </div>
 
@@ -47,7 +51,7 @@
                             <div class="col-md-6">
                                 <select class="assigned-selector" name="assigned_to">
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->id }}" {{ ($user->id == Auth::user()->id)? 'selected': ''}}>{{ $user->name }}({{$user->id}})</option>
+                                        <option value="{{ $user->id }}" {{ ($user->id == $project->assigned_to)? 'selected': ''}}>{{ $user->name }}({{$user->id}})</option>
                                     @endforeach
                                   </select>
 
@@ -59,13 +63,20 @@
                             </div>
                         </div>
 
+                        @if (!$project->deleted)
                         <div class="form-group row mb-0">
                             <div class="col-md-3 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Добавить
+                                    Сохранить
                                 </button>
                             </div>
+                            <div class="col-md-3">
+                                <a href="/dash/projects/{{ $project->id }}/delete" class="btn btn-danger">
+                                    Удалить
+                                </a>
+                            </div>
                         </div>
+                        @endif
                     </form>
                 </div>
             </div>

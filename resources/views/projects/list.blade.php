@@ -22,7 +22,10 @@
                         <td>
                             <a tabindex="0" class="btn btn-sm btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="{{ $project->tag()->first()->title }}" data-content="{{ $project->tag()->first()->description }}">{{$project->tag()->first()->title}}</a>
                         </td>
-                        <td style="text-align: right;"><a href="/dash/projects/{{ $project->id }}" class="btn btn-success btn-sm">Посмотреть</a></td>
+                        <td style="text-align: right;">
+                            <a href="/dash/projects/{{ $project->id }}/tasks" class="btn btn-success btn-sm">Задачи</a>
+                            <a href="/dash/projects/{{ $project->id }}" class="btn btn-success btn-sm">Посмотреть</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

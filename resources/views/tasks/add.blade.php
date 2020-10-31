@@ -5,11 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-            <div class="card-header">Добавление нового проекта</div>
+            <div class="card-header">Добавление новой задачи</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/dash/projects">
+                    <form method="POST" action="/dash/projects/{{ $project }}/tasks">
                         @csrf
+                        <input type="hidden" name="project_id" value="{{ $project }}">
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Название</label>
@@ -75,7 +76,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.assigned-selector').selectpicker({liveSearch:true});
+        $('.role-selector').selectpicker({liveSearch:true});
     });
 </script>
 @endsection
