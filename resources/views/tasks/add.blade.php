@@ -76,7 +76,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.role-selector').selectpicker({liveSearch:true});
+        $('.assigned-selector').selectpicker({liveSearch:true});
     });
 </script>
 @endsection

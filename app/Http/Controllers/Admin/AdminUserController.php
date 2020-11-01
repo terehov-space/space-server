@@ -46,7 +46,10 @@ class AdminUserController extends Controller
 
     public function delete(Request $request, $id)
     {
-        User::findOrFail($id)->delete();
+        $user = User::findOrFail($id);
+        $user->roles()->detach();
+        $user->deleted = 1;
+        $user->save();
         return redirect('/dash/users', 301);
     }
 }

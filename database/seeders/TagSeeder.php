@@ -23,10 +23,6 @@ class TagSeeder extends Seeder
             'type' => 0,
         ]);
         Tag::create([
-            'title' => 'На проверке',
-            'type' => 0,
-        ]);
-        Tag::create([
             'title' => 'Завершен',
             'type' => 0,
         ]);

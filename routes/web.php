@@ -72,5 +72,10 @@ Route::group(['prefix' => 'dash', 'middleware' => ['auth']], function () {
         Route::post('/projects/{project}/tasks/{id}/update', [TaskController::class, 'update']);
 
         Route::get('/projects/{project}/tasks/{id}/delete', [TaskController::class, 'delete']);
+
+        Route::get('/projects/{project}/tasks/{id}/stc', [TaskController::class, 'sendToCheck']);
+        Route::get('/projects/{project}/tasks/{id}/ttw', [TaskController::class, 'takeToWork']);
+        Route::get('/projects/{project}/tasks/{id}/sc', [TaskController::class, 'setChecked']);
+        Route::get('/projects/{project}/tasks/{id}/stw', [TaskController::class, 'sendToWork']);
     });
 });

@@ -37,29 +37,66 @@ class TaskController extends Controller
 
     public function edit(Request $request, $project, $id)
     {
-        return view('tasks.edit')->with('project', Task::findOrFail($id));
+        return view('tasks.edit')->with('task', Task::findOrFail($id))->with('project', $project)->with('users', User::get());
     }
 
     public function delete(Request $request, $project, $id)
     {
-        $project = Task::findOrFail($id);
-        $project->deleted = 0;
-        $project->save();
+        $task = Task::findOrFail($id);
+        $task->deleted = 1;
+        $task->save();
 
-        return redirect('/dash/projects/' . $project->id, 301);
+        return redirect('/dash/projects/' . $project . '/tasks/' . $task->id, 301);
     }
 
     public function update(Request $request, $project, $id)
     {
-        $project = Task::findOrFail($id);
-        $project->title = $request->input('title');
-        $project->description = $request->input('description');
-        $project->deadline = ($request->input('deadline'))? (new Carbon($request->input('deadline')))->toDateString(): '';
+        $task = Task::findOrFail($id);
+        $task->title = $request->input('title');
+        $task->description = $request->input('description');
+        $task->deadline = ($request->input('deadline'))? (new Carbon($request->input('deadline')))->toDateString(): '';
+        $task->assigned_to = $request->input('assigned_to');
 
-        if ($project->isDirty()) {
-            $project->save();
+        if ($task->isDirty()) {
+            $task->save();
         }
 
-        return redirect('/dash/projects/' . $project->id, 301);
+        return redirect('/dash/projects/' . $project . '/tasks/' . $task->id, 301);
+    }
+
+    public function takeToWork(Request $request, $project, $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->tag_id = 5;
+        $task->save();
+
+        return redirect('/dash/projects/' . $project . '/tasks/' . $task->id, 301);
+    }
+
+    public function sendToCheck(Request $request, $project, $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->tag_id = 6;
+        $task->save();
+
+        return redirect('/dash/projects/' . $project . '/tasks/' . $task->id, 301);
+    }
+
+    public function setChecked(Request $request, $project, $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->tag_id = 7;
+        $task->save();
+
+        return redirect('/dash/projects/' . $project . '/tasks/' . $task->id, 301);
+    }
+
+    public function sendToWork(Request $request, $project, $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->tag_id = 5;
+        $task->save();
+
+        return redirect('/dash/projects/' . $project . '/tasks/' . $task->id, 301);
     }
 }

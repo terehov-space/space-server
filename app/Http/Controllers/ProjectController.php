@@ -42,7 +42,7 @@ class ProjectController extends Controller
     public function delete(Request $request, $id)
     {
         $project = Project::findOrFail($id);
-        $project->deleted = 0;
+        $project->deleted = 1;
         $project->save();
 
         return redirect('/dash/projects/' . $project->id, 301);

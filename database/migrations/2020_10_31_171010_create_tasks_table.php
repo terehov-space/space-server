@@ -20,11 +20,12 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->date('deadline')->nullable();
+            $table->tinyInteger('deleted')->default(0);
 
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('assigned_to');
-            $table->unsignedBigInteger('tag_id')->default(5);
+            $table->unsignedBigInteger('tag_id')->default(4);
         });
     }
 

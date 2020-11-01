@@ -17,6 +17,7 @@ class Task extends Model
         'project_id',
         'assigned_to',
         'created_by',
+        'deleted',
     ];
 
     public function tag()
