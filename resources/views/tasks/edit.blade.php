@@ -21,7 +21,7 @@
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                                         name="title" value="{{ $task->title }}" required autocomplete="name" autofocus
-                                        {{ $task->deleted ? 'disabled' : '' }}>
+                                        {{ $task->deleted || !Auth::user()->hasRole('manager') ? 'disabled' : '' }}>
 
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -38,7 +38,7 @@
                                     <textarea id="description" type="text"
                                         class="form-control @error('description') is-invalid @enderror" name="description"
                                         autocomplete="email"
-                                        {{ $task->deleted ? 'disabled' : '' }}>{{ $task->description }}</textarea>
+                                        {{ $task->deleted || !Auth::user()->hasRole('manager') ? 'disabled' : '' }}>{{ $task->description }}</textarea>
                                 </div>
                             </div>
 
@@ -48,7 +48,8 @@
                                 <div class="col-md-6">
                                     <input id="deadline" type="date"
                                         class="form-control @error('deadline') is-invalid @enderror" name="deadline"
-                                        value="{{ $task->deadline }}" {{ $task->deleted ? 'disabled' : '' }}>
+                                        value="{{ $task->deadline }}"
+                                        {{ $task->deleted || !Auth::user()->hasRole('manager') ? 'disabled' : '' }}>
                                 </div>
                             </div>
 
@@ -56,7 +57,8 @@
                                 <label for="password" class="col-md-4 col-form-label text-md-right">Заказчик</label>
 
                                 <div class="col-md-6">
-                                    <select class="assigned-selector" name="assigned_to">
+                                    <select class="assigned-selector" name="assigned_to"
+                                        {{ !Auth::user()->hasRole('manager') ? 'disabled' : '' }}>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}"
                                                 {{ $user->id == $task->assigned_to ? 'selected' : '' }}>
@@ -75,12 +77,13 @@
 
                             @if (!$task->deleted)
                                 <div class="form-group row mb-0">
-                                    <div class="col-md-3 offset-md-2">
-                                        <button type="submit" class="btn btn-primary">
-                                            Сохранить
-                                        </button>
-                                    </div>
                                     @if (Auth::user()->hasRole('manager'))
+                                        <div class="col-md-3 offset-md-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                Сохранить
+                                            </button>
+                                        </div>
+
                                         <div class="col-md-3">
                                             <a href="/dash/projects/{{ $project }}/tasks/{{ $task->id }}/delete"
                                                 class="btn btn-danger">
@@ -89,14 +92,14 @@
                                         </div>
                                     @elseif (Auth::user()->hasRole('developer'))
                                         @if ($task->tag_id == 5)
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 offset-md-4">
                                                 <a href="/dash/projects/{{ $project }}/tasks/{{ $task->id }}/stc"
                                                     class="btn btn-danger">
                                                     На проверку
                                                 </a>
                                             </div>
                                         @elseif ($task->tag_id != 7)
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 offset-md-4">
                                                 <a href="/dash/projects/{{ $project }}/tasks/{{ $task->id }}/ttw"
                                                     class="btn btn-danger">
                                                     Взять работу
@@ -105,7 +108,7 @@
                                         @endif
                                     @elseif (Auth::user()->hasRole('client'))
                                         @if ($task->tag_id == 6)
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 offset-md-4">
                                                 <a href="/dash/projects/{{ $project }}/tasks/{{ $task->id }}/sc"
                                                     class="btn btn-danger">
                                                     Проверить

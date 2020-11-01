@@ -16,6 +16,12 @@ class MenuComposer
             'href' => '/dash/reports',
         ],
     ];
+    protected $developerMenu = [
+        [
+            'title' => 'Задачи',
+            'href' => '/dash/tasks',
+        ],
+    ];
     protected $otherMenu = [
         [
             'title' => 'Проекты',
@@ -35,7 +41,12 @@ class MenuComposer
             if (request()->user()->hasRole('admin')) {
                 $menu = array_merge($menu, $this->adminMenu);
             }
-            if (request()->user()->hasRole('manager') || request()->user()->hasRole('developer') || request()->user()->hasRole('client')) {
+
+            if (request()->user()->hasRole('developer')) {
+                $menu = array_merge($menu, $this->developerMenu);
+            }
+
+            if (request()->user()->hasRole('manager') || request()->user()->hasRole('client')) {
                 $menu = array_merge($menu, $this->otherMenu);
             }
         }

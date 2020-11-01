@@ -15,6 +15,12 @@ class TaskController extends Controller
         return view('tasks.list')->with('tasks', $task)->with('project', $project);
     }
 
+    public function developer(Request $request)
+    {
+        $task = Task::where('assigned_to', $request->user()->id)->get();
+        return view('tasks.list_developer')->with('tasks', $task);
+    }
+
     public function addPage(Request $request, $project)
     {
         return view('tasks.add')->with('users', User::get())->with('project', $project);

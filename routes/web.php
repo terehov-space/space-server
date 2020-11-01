@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminReportController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
@@ -26,7 +27,6 @@ Auth::routes();
 Route::group(['prefix' => 'dash', 'middleware' => ['auth']], function () {
 
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/settings', [App\Http\Controllers\HomeController::class, 'index'])->name('settings');
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/users', [AdminUserController::class, 'list']);
@@ -39,9 +39,7 @@ Route::group(['prefix' => 'dash', 'middleware' => ['auth']], function () {
 
         Route::get('/users/{id}/delete', [AdminUserController::class, 'delete']);
 
-        Route::get('/reports', function () {
-            return 'reports';
-        });
+        Route::get('/reports', [AdminReportController::class, 'list']);
     });
 
     Route::group(['middleware' => ['role:admin|manager|developer|client']], function () {
@@ -77,5 +75,7 @@ Route::group(['prefix' => 'dash', 'middleware' => ['auth']], function () {
         Route::get('/projects/{project}/tasks/{id}/ttw', [TaskController::class, 'takeToWork']);
         Route::get('/projects/{project}/tasks/{id}/sc', [TaskController::class, 'setChecked']);
         Route::get('/projects/{project}/tasks/{id}/stw', [TaskController::class, 'sendToWork']);
+
+        Route::get('/tasks', [TaskController::class, 'developer']);
     });
 });
