@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function list()
+    public function list(Request $request)
     {
-        $project = Project::get();
+        $project = Project::where('created_by', $request->user()->id)->orWhere('assigned_to', $request->user()->id)->get();
         return view('projects.list')->with('projects', $project);
     }
 

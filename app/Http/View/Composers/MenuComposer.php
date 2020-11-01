@@ -21,10 +21,6 @@ class MenuComposer
             'title' => 'Проекты',
             'href' => '/dash/projects',
         ],
-        [
-            'title' => 'Задачи',
-            'href' => '/dash/tasks',
-        ],
     ];
 
     public function __construct()
