@@ -27,6 +27,6 @@ class Task extends Model
 
     public function messages()
     {
-        return $this->hasMany('App\Models\Message', 'task_id', 'id');
+        return $this->hasMany('App\Models\Message');
     }
 }

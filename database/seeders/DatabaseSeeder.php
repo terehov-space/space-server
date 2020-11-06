@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TagSeeder::class);
         $this->call(ProjectSeeder::class);
         $this->call(TaskSeeder::class);
+        $this->call(MessageSeeder::class);
     }
 }
