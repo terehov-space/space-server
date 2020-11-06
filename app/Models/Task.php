@@ -24,4 +24,9 @@ class Task extends Model
     {
         return $this->belongsTo('App\Models\Tag', 'tag_id', 'id');
     }
+
+    public function messages()
+    {
+        return $this->hasMany('App\Models\Message', 'task_id', 'id');
+    }
 }

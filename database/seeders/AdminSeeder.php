@@ -25,13 +25,5 @@ class AdminSeeder extends Seeder
         $role = Role::find(1);
 
         $user->roles()->save($role);
-
-        $role = Role::find(2);
-
-        $user->roles()->save($role);
-
-        $role = Role::find(4);
-
-        $user->roles()->save($role);
     }
 }
