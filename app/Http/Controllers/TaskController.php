@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
@@ -104,5 +105,16 @@ class TaskController extends Controller
         $task->save();
 
         return redirect('/dash/projects/' . $project . '/tasks/' . $task->id, 301);
+    }
+
+    public function comment(Request $request, $project, $id)
+    {
+        Message::create([
+            'message' => $request->input('message'),
+            'user_id' => $request->user()->id,
+            'task_id' => $id,
+        ]);
+
+        return redirect('/dash/projects/' . $project . '/tasks/' . $id, 301);
     }
 }

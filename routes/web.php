@@ -69,6 +69,8 @@ Route::group(['prefix' => 'dash', 'middleware' => ['auth']], function () {
 
         Route::post('/projects/{project}/tasks/{id}/update', [TaskController::class, 'update']);
 
+        Route::post('/projects/{project}/tasks/{id}/comment', [TaskController::class, 'comment']);
+
         Route::get('/projects/{project}/tasks/{id}/delete', [TaskController::class, 'delete']);
 
         Route::get('/projects/{project}/tasks/{id}/stc', [TaskController::class, 'sendToCheck']);
